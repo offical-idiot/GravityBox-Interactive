@@ -40,6 +40,7 @@ async function login() {
   });
 
   if (error) console.log(error.message);
+  
 }
 
 // ---------- LOGOUT ----------
@@ -52,11 +53,16 @@ async function logout() {
 async function post() {
   const text = document.getElementById("postText").value;
 
-  const { data, error } = await window.supabaseClient
-    .from("posts")
-    .insert([{ text }]);
+  if (!text || !currentUser) return;
 
-  if (error) console.log(error.message);
+  await window.supabaseClient.from("posts").insert([
+    {
+      user: currentUser.email,
+      text: text
+    }
+  ]);
+
+  loadPosts();
 }
 // ---------- LOAD POSTS ----------
 async function loadPosts() {
@@ -76,4 +82,34 @@ async function loadPosts() {
 async function clearPosts() {
   await window.supabaseClient.from("posts").delete().neq("id", 0);
   loadPosts();
+}
+function isAdmin() {
+  return currentUser?.email === "gravitybox@admin.com";
+}
+if (isAdmin()) {
+  document.getElementById("adminPanel").style.display = "block";
+}
+// ---------- GAMES ----------
+async function loadGames() {
+  const { data } = await supabase.from("games").select("*");
+
+  const container = document.getElementById("gamesList");
+  container.innerHTML = "";
+
+  data.forEach(g => {
+    container.innerHTML += `
+      <div class="card">
+        <h3>${g.title}</h3>
+        <p>${g.description}</p>
+        <button onclick="window.open('${g.url}', '_blank')">Play</button>
+      </div>
+    `;
+  });
+}
+// ---------- PROFILES ----------
+function getProfile() {
+  return {
+    email: currentUser.email,
+    role: isAdmin() ? "admin" : "user"
+  };
 }
