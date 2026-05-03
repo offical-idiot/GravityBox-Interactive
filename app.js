@@ -3,6 +3,7 @@ const supabase = window.supabase.createClient(
   "https://pvjdwtgsulrmxamxrwrx.supabase.co",
   "YOUR_ANON_KEY"
 );
+
 window.onload = () => show("home");
 let currentUser = null;
 let role = "guest";
