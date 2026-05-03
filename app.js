@@ -7,6 +7,10 @@ const supabase = window.supabaseClient;
 let currentUser = null;
 let role = "guest";
 
+window.onload = () => {
+  show("home");
+};
+
 // ---------- PAGE SYSTEM ----------
 function show(page) {
   document.querySelectorAll(".page").forEach(p => {
