@@ -1,46 +1,87 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background-color: #1e1e1e;
+  background: radial-gradient(circle at top, #1e1e1e, #0f0f0f);
   color: #f4f4f4;
 }
 
+/* HEADER */
 header {
-  background-color: #333;
-  padding: 20px;
+  background: linear-gradient(90deg, #222, #333);
+  padding: 30px 20px;
   text-align: center;
+  border-bottom: 2px solid #00a86b;
 }
 
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+header p {
+  margin-top: 8px;
+  color: #bbb;
+}
+
+/* MAIN LAYOUT */
 main {
   padding: 20px;
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
 }
 
+/* SECTIONS */
 section {
-  margin-bottom: 30px;
-  background: #2a2a2a;
-  padding: 15px;
-  border-radius: 8px;
+  margin-bottom: 25px;
+  background: #252525;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, background 0.15s ease;
 }
 
+section:hover {
+  transform: translateY(-2px);
+  background: #2c2c2c;
+}
+
+/* BUTTONS */
 button {
-  padding: 10px 15px;
-  background-color: #00a86b;
+  padding: 10px 16px;
+  background: linear-gradient(90deg, #00a86b, #00c97f);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.1s ease, filter 0.2s ease;
 }
 
 button:hover {
-  background-color: #007f50;
+  filter: brightness(1.1);
+  transform: scale(1.03);
 }
 
+button:active {
+  transform: scale(0.97);
+}
+
+/* CODE TAGS */
+code {
+  background: #111;
+  padding: 3px 6px;
+  border-radius: 4px;
+  color: #00ff9c;
+}
+
+/* FOOTER */
 footer {
   text-align: center;
   padding: 15px;
   background-color: #111;
-  color: #aaa;
+  color: #777;
   font-size: 0.9em;
+  border-top: 1px solid #222;
+  margin-top: 30px;
 }
