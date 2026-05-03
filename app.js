@@ -1,109 +1,94 @@
-let users = JSON.parse(localStorage.getItem("users") || "[]");
-let posts = JSON.parse(localStorage.getItem("posts") || "[]");
+// 🔧 SUPABASE SETUP
+const supabase = window.supabase.createClient(
+  "YOUR_SUPABASE_URL",
+  "YOUR_SUPABASE_ANON_KEY"
+);
 
-let currentUser = localStorage.getItem("currentUser");
-let currentRole = localStorage.getItem("role") || "guest";
+let currentUser = null;
+let role = "guest";
 
-// ---------- PAGE SWITCH ----------
+// ---------- NAV ----------
 function show(page) {
   document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
   document.getElementById(page).classList.remove("hidden");
 
-  if (page === "forums") renderPosts();
-
-  if (page === "admin" && currentRole !== "admin") {
-    alert("Access denied");
-    show("home");
-  }
+  if (page === "forum") loadPosts();
 }
 
 // ---------- SIGN UP ----------
-function signup() {
-  let u = document.getElementById("suUser").value;
-  let p = document.getElementById("suPass").value;
+async function signup() {
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
 
-  users.push({ u, p, role: "user" });
-  localStorage.setItem("users", JSON.stringify(users));
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password
+  });
 
   alert("Account created!");
 }
 
 // ---------- LOGIN ----------
-function login() {
-  let u = document.getElementById("loginUser").value;
-  let p = document.getElementById("loginPass").value;
+async function login() {
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
 
-  // 👑 HARD ADMIN ACCOUNT
-  if (u === "GravityBox" && p === "admin") {
-    currentUser = u;
-    currentRole = "admin";
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
 
-    localStorage.setItem("currentUser", u);
-    localStorage.setItem("role", "admin");
+  currentUser = data.user;
 
-    alert("Logged in as Admin");
+  // 👑 ADMIN CHECK
+  if (email === "gravitybox@admin.com") {
+    role = "admin";
     show("admin");
-    return;
-  }
-
-  let found = users.find(x => x.u === u && x.p === p);
-
-  if (found) {
-    currentUser = found.u;
-    currentRole = found.role;
-
-    localStorage.setItem("currentUser", found.u);
-    localStorage.setItem("role", found.role);
-
-    alert("Logged in as " + found.role);
-    show("home");
   } else {
-    alert("Invalid login");
+    role = "user";
+    show("home");
   }
 }
 
 // ---------- LOGOUT ----------
-function logout() {
-  localStorage.removeItem("currentUser");
-  localStorage.removeItem("role");
+async function logout() {
+  await supabase.auth.signOut();
   currentUser = null;
-  currentRole = "guest";
-
-  alert("Logged out");
+  role = "guest";
   show("home");
 }
 
-// ---------- FORUM ----------
-function postMessage() {
+// ---------- POST ----------
+async function post() {
   let text = document.getElementById("postText").value;
 
-  posts.push({
-    user: currentUser || "Guest",
-    role: currentRole,
-    text
-  });
+  await supabase.from("posts").insert([
+    {
+      user: currentUser.email,
+      text: text,
+      role: role
+    }
+  ]);
 
-  localStorage.setItem("posts", JSON.stringify(posts));
-  renderPosts();
+  loadPosts();
 }
 
-function renderPosts() {
+// ---------- LOAD POSTS ----------
+async function loadPosts() {
+  const { data } = await supabase.from("posts").select("*");
+
   let div = document.getElementById("posts");
   div.innerHTML = "";
 
-  posts.forEach(p => {
+  data.forEach(p => {
     div.innerHTML += `
-      <p>
-        <b>[${p.role}] ${p.user}:</b> ${p.text}
-      </p>
+      <p><b>[${p.role}] ${p.user}:</b> ${p.text}</p>
     `;
   });
 }
 
 // ---------- ADMIN ----------
-function clearPosts() {
-  posts = [];
-  localStorage.setItem("posts", JSON.stringify(posts));
-  renderPosts();
-  alert("All posts cleared");
+async function clearPosts() {
+  await supabase.from("posts").delete().neq("id", 0);
+  loadPosts();
 }
