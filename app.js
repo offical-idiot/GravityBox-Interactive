@@ -11,12 +11,12 @@ let role = "guest";
 // ---------- PAGE SYSTEM ----------
 function show(page) {
   document.querySelectorAll(".page").forEach(p => {
-    p.style.display = "none";
+    p.classList.remove("active");
   });
 
   const target = document.getElementById(page);
   if (target) {
-    target.style.display = "block";
+    target.classList.add("active");
   }
 }
 
