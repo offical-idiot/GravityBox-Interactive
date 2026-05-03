@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>GravityBox Interactive</title>
   <link rel="stylesheet" href="styles.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
 <body>
@@ -12,7 +13,7 @@
   <h1>GravityBox Interactive</h1>
   <div>
     <button onclick="show('home')">Home</button>
-    <button onclick="show('forums')">Forums</button>
+    <button onclick="show('forum')">Forums</button>
     <button onclick="show('auth')">Login</button>
     <button onclick="logout()">Logout</button>
   </div>
@@ -21,52 +22,42 @@
 <!-- HOME -->
 <section id="home" class="page">
   <div class="card">
-    <h2>Welcome to GravityBox Interactive</h2>
-    <p>Indie sandbox games • Physics systems • Experimental gameplay</p>
-  </div>
-
-  <div class="card">
-    <h3>Featured Game</h3>
-    <p><b>Untitled Sandbox Game</b> — Build, destroy, and experiment with physics freely.</p>
+    <h2>GravityBox Interactive</h2>
+    <p>Sandbox games • Physics systems • Experimental gameplay</p>
   </div>
 </section>
 
 <!-- AUTH -->
 <section id="auth" class="page hidden">
   <div class="card">
-    <h2>Login</h2>
-    <input id="loginUser" placeholder="Username">
-    <input id="loginPass" type="password" placeholder="Password">
+    <h2>Login / Sign Up</h2>
+
+    <input id="email" placeholder="email">
+    <input id="password" type="password" placeholder="password">
+
+    <button onclick="signup()">Sign Up</button>
     <button onclick="login()">Login</button>
-
-    <hr>
-
-    <h2>Sign Up</h2>
-    <input id="suUser" placeholder="Username">
-    <input id="suPass" type="password" placeholder="Password">
-    <button onclick="signup()">Create Account</button>
   </div>
 </section>
 
-<!-- FORUMS -->
-<section id="forums" class="page hidden">
+<!-- FORUM -->
+<section id="forum" class="page hidden">
   <div class="card">
     <h2>Forums</h2>
 
     <textarea id="postText" placeholder="Write a post..."></textarea>
-    <button onclick="postMessage()">Post</button>
+    <button onclick="post()">Post</button>
 
     <div id="posts"></div>
   </div>
 </section>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN -->
 <section id="admin" class="page hidden">
   <div class="card">
     <h2>Admin Panel</h2>
-    <p>Welcome, GravityBox 👑</p>
-
-    <button onclick="clearPosts()">Clear All Posts</button>
+    <p>Welcome GravityBox 👑</p>
+    <button onclick="clearPosts()">Clear Posts</button>
   </div>
 </section>
 
