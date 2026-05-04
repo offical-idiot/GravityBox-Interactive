@@ -1,18 +1,27 @@
 // ---------- SUPABASE ----------
 
 window.supabaseClient = window.supabase.createClient("https://pvjdwtgsulrmxamxrwrx.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2amR3dGdzdWxybXhhbXhyd3J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzUxMzUsImV4cCI6MjA5MzQxMTEzNX0.2V9YYb8Imqvx8bGJT2pVNwUJnwE_BYYxINf-pcRbCQA")
-window.onload = () => show("home");
+window.onload = () => {
+  show("home");
+};
 let currentUser = null;
 let role = "guest";
 
 // ---------- PAGE SYSTEM ----------
-show = (page) => {
-  document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+function show(page) {
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.add("hidden");
+  });
+
   document.getElementById(page).classList.remove("hidden");
 
-  if (page === "games") loadGames();
-  if (page === "forum") loadPosts();
-  if (page === "profile") loadProfile();
+  if (page === "forum") {
+    loadPost();
+  if (page === "games") {
+    loadGames();
+  if (page === "profile") {
+    loadProfile();
+  }
 }
 
 // ---------- SIGN UP ----------
