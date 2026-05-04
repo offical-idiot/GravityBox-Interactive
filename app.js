@@ -120,18 +120,15 @@ async function loadPosts() {
   container.innerHTML = "";
 
   data.forEach(p => {
-    const email = p.email;
+    let name = p.email;
 
-    // CUSTOM NAME RULE
-    let displayName = email;
-
-    if (email === "monkomonko50@gmail.com") {
-      displayName = "GravityBox Interactive ✔";
+    if (p.email === "monkomonko50@gmail.com") {
+      name = "GravityBox Interactive ✔";
     }
 
     container.innerHTML += `
       <div class="card">
-        <b>${displayName}</b>
+        <b>${name}</b>
         <p>${p.text}</p>
       </div>
     `;
