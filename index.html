@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GravityBox Interactive v2</title>
+  <title>GravityBox</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
+<nav>
   <h1 onclick="show('home')">GravityBox</h1>
-
-  <div class="nav-links">
-    <button onclick="show('home')">Home</button>
+  <div>
     <button onclick="show('games')">Games</button>
-    <button onclick="show('forum')">Community</button>
+    <button onclick="show('community')">Community</button>
     <button onclick="show('profile')">Profile</button>
     <button onclick="show('auth')">Login</button>
   </div>
@@ -22,47 +19,38 @@
 
 <!-- HOME -->
 <section id="home" class="page">
-  <h2>Featured Game</h2>
-
-  <div class="game-hero">
+  <h2>Featured</h2>
+  <div class="hero">
     <h1>Untitled Sandbox Game</h1>
-    <p>Physics sandbox with experimental mechanics</p>
-    <button onclick="openGame()">Play Now</button>
+    <button onclick="playFeatured()">Play</button>
   </div>
 </section>
 
-<!-- GAMES LIST -->
+<!-- GAMES -->
 <section id="games" class="page hidden">
-  <h2>Browse Games</h2>
+  <h2>Games</h2>
   <div id="gamesList" class="grid"></div>
 </section>
 
-<!-- GAME PAGE -->
-<section id="gameView" class="page hidden">
+<!-- GAME VIEW -->
+<section id="game" class="page hidden">
   <button onclick="show('games')">← Back</button>
-
-  <div class="game-page">
-    <h1 id="gameTitle"></h1>
-    <p id="gameDesc"></p>
-
-    <button id="playBtn">Play</button>
-  </div>
+  <h1 id="gameTitle"></h1>
+  <p id="gameDesc"></p>
+  <button id="playBtn">Play</button>
 </section>
 
-<!-- FORUM -->
-<section id="forum" class="page hidden">
+<!-- COMMUNITY -->
+<section id="community" class="page hidden">
   <h2>Community</h2>
-
   <textarea id="postText"></textarea>
   <button onclick="post()">Post</button>
-
   <div id="posts"></div>
 </section>
 
 <!-- PROFILE -->
 <section id="profile" class="page hidden">
   <h2>Profile</h2>
-  <p id="profileName"></p>
   <p id="profileEmail"></p>
 </section>
 
