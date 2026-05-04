@@ -15,15 +15,9 @@ function show(page) {
 
   document.getElementById(page).classList.remove("hidden");
 
-  if (page === "forum") {
-    loadPosts();
-  }
-  if (page === "games") {
-    loadGames();
-  }
-  if (page === "profile") {
-    loadProfile();
-  }
+  if (page === "forum") loadPosts();
+  if (page === "games") loadGames();
+  if (page === "profile") loadProfile();
 }
 
 // ---------- SIGN UP ----------
