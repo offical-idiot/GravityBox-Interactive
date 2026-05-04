@@ -32,7 +32,7 @@ async function signup() {
 
   const user = data.user;
 
-  await supabase.from("profiles").insert([
+  await window.supabaseClient.from("profiles").insert([
     {
       id: user.id,
       email: user.email,
