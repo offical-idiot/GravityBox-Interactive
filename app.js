@@ -134,8 +134,8 @@ async function loadPosts() {
 
     container.innerHTML += `
       <div class="card">
-        <b>${name}</b>
-        <p>${p.text}</p>
+        <b>${name || "Guest User"}</b>
+        <p>${p.text || "User didn't input text"}</p>
       </div>
     `;
   });
