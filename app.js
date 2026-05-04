@@ -1,4 +1,4 @@
-// INIT
+// INIT (DO NOT CHANGE STYLE)
 window.supabaseClient = window.supabase.createClient("https://pvjdwtgsulrmxamxrwrx.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2amR3dGdzdWxybXhhbXhyd3J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzUxMzUsImV4cCI6MjA5MzQxMTEzNX0.2V9YYb8Imqvx8bGJT2pVNwUJnwE_BYYxINf-pcRbCQA")
 
 let currentUser = null;
@@ -9,20 +9,28 @@ function show(page) {
   document.getElementById(page).classList.remove("hidden");
 
   if (page === "games") loadGames();
-  if (page === "forum") loadPosts();
+  if (page === "community") loadPosts();
   if (page === "profile") loadProfile();
 }
 
-// HOME LOAD
 window.onload = () => show("home");
 
 // AUTH
-async function login() {
-  const email = email.value;
-  const password = password.value;
+async function signup() {
+  const { error } = await window.supabaseClient.auth.signUp({
+    email: email.value,
+    password: password.value
+  });
 
+  if (error) alert(error.message);
+}
+
+async function login() {
   const { data, error } =
-    await window.supabaseClient.auth.signInWithPassword({ email, password });
+    await window.supabaseClient.auth.signInWithPassword({
+      email: email.value,
+      password: password.value
+    });
 
   if (error) return alert(error.message);
 
@@ -30,26 +38,15 @@ async function login() {
   show("home");
 }
 
-async function signup() {
-  const { error } =
-    await window.supabaseClient.auth.signUp({
-      email: email.value,
-      password: password.value
-    });
-
-  if (error) alert(error.message);
-}
-
 // GAMES
 async function loadGames() {
   const { data } = await window.supabaseClient.from("games").select("*");
 
-  const container = document.getElementById("gamesList");
-  container.innerHTML = "";
+  gamesList.innerHTML = "";
 
   data.forEach(g => {
-    container.innerHTML += `
-      <div class="game-card" onclick="openGamePage('${g.title}', '${g.description}', '${g.url}')">
+    gamesList.innerHTML += `
+      <div class="card" onclick="openGame('${g.title}', '${g.description}', '${g.url}')">
         <h3>${g.title}</h3>
         <p>${g.description}</p>
       </div>
@@ -57,29 +54,22 @@ async function loadGames() {
   });
 }
 
-function openGamePage(title, desc, url) {
-  document.getElementById("gameTitle").textContent = title;
-  document.getElementById("gameDesc").textContent = desc;
-
-  document.getElementById("playBtn").onclick = () => {
-    window.location.href = url;
-  };
-
-  show("gameView");
+function openGame(title, desc, url) {
+  gameTitle.textContent = title;
+  gameDesc.textContent = desc;
+  playBtn.onclick = () => window.location.href = url;
+  show("game");
 }
 
-function openGame() {
+function playFeatured() {
   window.location.href = "games/untitled-sandbox/index.html";
 }
 
 // FORUM
 async function post() {
-  const text = postText.value;
-
   await window.supabaseClient.from("posts").insert([
-    { text }
+    { text: postText.value }
   ]);
-
   loadPosts();
 }
 
@@ -88,7 +78,7 @@ async function loadPosts() {
 
   posts.innerHTML = "";
   data.forEach(p => {
-    posts.innerHTML += `<div class="game-card">${p.text}</div>`;
+    posts.innerHTML += `<div class="card">${p.text}</div>`;
   });
 }
 
@@ -96,5 +86,7 @@ async function loadPosts() {
 async function loadProfile() {
   const { data } = await window.supabaseClient.auth.getUser();
 
-  profileEmail.textContent = data.user.email;
+  if (!data.user) return;
+
+  profileEmail.textContent = "Email: " + data.user.email;
 }
