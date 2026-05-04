@@ -86,11 +86,23 @@ function playFeatured() {
 
 // FORUM
 async function post() {
+  const text = document.getElementById("postText").value;
+
+  const { data: userData } =
+    await window.supabaseClient.auth.getUser();
+
+  const email = userData.user.email;
+
   await window.supabaseClient.from("posts").insert([
-    { text: postText.value }
+    {
+      text: text,
+      email: email
+    }
   ]);
+
   loadPosts();
 }
+
 async function loadPosts() {
   const { data, error } = await window.supabaseClient
     .from("posts")
