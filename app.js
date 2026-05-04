@@ -61,6 +61,8 @@ async function loadGames() {
     container.innerHTML += `
       <div class="card">
         <h3>${g.title}</h3>
+        <p>Creator: ${g.creator || "unknown"}</p>
+        <p>Publisher: ${g.publisher || "unknown"}</p>
         <p>${g.description}</p>
         <a href="${g.url}">
           <button>Open</button>
