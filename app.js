@@ -51,7 +51,7 @@ async function login() {
   });
 
   if (error) console.log(error.message);
-  
+  await loadProfile();
 }
 
 // ---------- LOGOUT ----------
@@ -68,7 +68,7 @@ async function post() {
 
   await window.supabaseClient.from("posts").insert([
     {
-      user: currentUser.email,
+      user: profile.display_name,
       text: text
     }
   ]);
@@ -102,7 +102,7 @@ if (isAdmin()) {
 }
 // ---------- GAMES ----------
 async function loadGames() {
-  const { data } = await supabase.from("games").select("*");
+  const { data } = await window.supabaseClient.from("games").select("*");
 
   const container = document.getElementById("gamesList");
   container.innerHTML = "";
@@ -123,4 +123,17 @@ function getProfile() {
     email: currentUser.email,
     role: isAdmin() ? "admin" : "user"
   };
+}
+async function loadProfile() {
+  const { data: userData } = await window.supabaseClient.auth.getUser();
+  const user = userData.user;
+
+  const { data: profile } = await window.supabaseClient
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
+
+  document.getElementById("userEmail").textContent =
+    "Hello " + profile.display_name;
 }
