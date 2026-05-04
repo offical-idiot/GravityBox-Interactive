@@ -7,86 +7,72 @@
 
 <body>
 
-<nav>
-  <h1>GravityBox Interactive</h1>
-  <div>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <h1 onclick="show('home')">GravityBox</h1>
+
+  <div class="nav-links">
     <button onclick="show('home')">Home</button>
     <button onclick="show('games')">Games</button>
-    <button onclick="show('forum')">Forums</button>
-    <button onclick="show('auth')">Login</button>
+    <button onclick="show('forum')">Community</button>
     <button onclick="show('profile')">Profile</button>
-    <button onclick="logout()">Logout</button>
+    <button onclick="show('auth')">Login</button>
   </div>
 </nav>
 
 <!-- HOME -->
 <section id="home" class="page">
-  <div class="card">
-    <h2>GravityBox Interactive</h2>
-    <p>Sandbox games • Physics systems • Experimental gameplay</p>
-  </div>
-</section>
-  
-<!-- PROFILES -->
-<section id="profile" class="page hidden">
-  <div class="card">
-    <h2>Profile</h2>
-    
-    <p><b>Name:</b> <span id="profileName">Loading...</span></p>
-    <p><b>Email:</b> <span id="profileEmail">Loading...</span></p>
-    <p><b>Role:</b> <span id="profileRole">User</span></p>
+  <h2>Featured Game</h2>
+
+  <div class="game-hero">
+    <h1>Untitled Sandbox Game</h1>
+    <p>Physics sandbox with experimental mechanics</p>
+    <button onclick="openGame()">Play Now</button>
   </div>
 </section>
 
-<!-- GAMES -->
+<!-- GAMES LIST -->
 <section id="games" class="page hidden">
-  <div class="card">
-    <h2>Games</h2>
-    <p>Play projects created by GravityBox.</p>
-  </div>
-
-  <div class="card">
-    <h3>🎮 Untitled Sandbox Game</h3>
-    <p>
-      A physics-based sandbox experiment focused on movement, objects, and interaction systems.
-    </p>
-    <button onclick="openGame()">Play</button>
-  </div>
+  <h2>Browse Games</h2>
+  <div id="gamesList" class="grid"></div>
 </section>
 
-<!-- AUTH -->
-<section id="auth" class="page hidden">
-  <div class="card">
-    <h2>Login / Sign Up</h2>
+<!-- GAME PAGE -->
+<section id="gameView" class="page hidden">
+  <button onclick="show('games')">← Back</button>
 
-    <input id="email" placeholder="email">
-    <input id="password" type="password" placeholder="password">
+  <div class="game-page">
+    <h1 id="gameTitle"></h1>
+    <p id="gameDesc"></p>
 
-    <button onclick="signup()">Sign Up</button>
-    <button onclick="login()">Login</button>
-    <a href="resetpass.html">Forgot password?</a>
+    <button id="playBtn">Play</button>
   </div>
 </section>
 
 <!-- FORUM -->
 <section id="forum" class="page hidden">
-  <div class="card">
-    <h2>Forums</h2>
+  <h2>Community</h2>
 
-    <textarea id="postText" placeholder="Write a post..."></textarea>
-    <button onclick="post()">Post</button>
+  <textarea id="postText"></textarea>
+  <button onclick="post()">Post</button>
 
-    <div id="posts"></div>
-  </div>
+  <div id="posts"></div>
 </section>
 
-<!-- ADMIN -->
-<section id="admin" class="page hidden">
-  <div class="card">
-    <h2>Admin Panel</h2>
-    <p>Welcome GravityBox 👑</p>
-    <button onclick="clearPosts()">Clear Posts</button>
-  </div>
+<!-- PROFILE -->
+<section id="profile" class="page hidden">
+  <h2>Profile</h2>
+  <p id="profileName"></p>
+  <p id="profileEmail"></p>
+</section>
+
+<!-- AUTH -->
+<section id="auth" class="page hidden">
+  <h2>Login</h2>
+  <input id="email" placeholder="email">
+  <input id="password" type="password" placeholder="password">
+  <button onclick="signup()">Sign Up</button>
+  <button onclick="login()">Login</button>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
