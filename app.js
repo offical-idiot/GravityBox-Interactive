@@ -8,15 +8,15 @@ let role = "guest";
 // ---------- PAGE SYSTEM ----------
 function show(page) {
   document.querySelectorAll(".page").forEach(p => {
-    p.classList.remove("active");
+    p.classList.add("hidden");
   });
 
-  const target = document.getElementById(page);
-  if (target) {
-    target.classList.add("active");
+  document.getElementById(page).classList.remove("hidden");
+
+  if (page === "profile") {
+    loadProfile();
   }
 }
-
 // ---------- SIGN UP ----------
 async function signup() {
   const email = document.getElementById("email").value;
