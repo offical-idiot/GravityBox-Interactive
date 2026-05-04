@@ -40,15 +40,30 @@ async function login() {
 
 // GAMES
 async function loadGames() {
-  const { data } = await window.supabaseClient.from("games").select("*");
+  const { data, error } = await window.supabaseClient
+    .from("games")
+    .select("*");
+
+  if (error) {
+    console.log("Games error:", error.message);
+    return;
+  }
+
+  if (!data) {
+    console.log("No games returned");
+    return;
+  }
 
   gamesList.innerHTML = "";
 
   data.forEach(g => {
     gamesList.innerHTML += `
-      <div class="card" onclick="openGame('${g.title}', '${g.description}', '${g.url}')">
+      <div class="card">
         <h3>${g.title}</h3>
         <p>${g.description}</p>
+        <a href="${g.url}">
+          <button>Open</button>
+        </a>
       </div>
     `;
   });
