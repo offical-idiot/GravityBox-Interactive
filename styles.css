@@ -1,63 +1,48 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: #0f1115;
-  color: white;
+  background: #0f1117;
+  color: #fff;
 }
 
-nav {
+.navbar {
   display: flex;
   justify-content: space-between;
   padding: 15px;
-  background: #1a1d24;
-  border-bottom: 1px solid #333;
+  background: #1a1d26;
 }
 
-nav button {
-  margin-left: 8px;
-  background: #222;
-  border: 1px solid #333;
-  color: white;
-  padding: 6px 10px;
-  cursor: pointer;
+.nav-links button {
+  margin-left: 10px;
 }
 
 .page {
-  display: none;
-  max-width: 900px;
-  margin: auto;
   padding: 20px;
 }
 
-.page.active {
-  display: block;
+.hidden {
+  display: none;
 }
 
-.card {
-  background: #1e1e1e;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.game-card {
+  background: #1c1f2b;
   padding: 15px;
-  margin: 10px 0;
   border-radius: 10px;
-  border: 1px solid #333;
-}
-
-input, textarea {
-  width: 100%;
-  margin: 5px 0;
-  padding: 10px;
-  background: #0f1115;
-  color: white;
-  border: 1px solid #333;
-}
-
-button {
-  padding: 10px;
-  background: #3b82f6;
-  border: none;
-  color: white;
   cursor: pointer;
 }
 
-button:hover {
-  background: #2563eb;
+.game-card:hover {
+  background: #262a3a;
+}
+
+.game-hero {
+  background: #1c1f2b;
+  padding: 30px;
+  border-radius: 12px;
 }
