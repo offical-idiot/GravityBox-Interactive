@@ -4,6 +4,9 @@ window.supabaseClient = window.supabase.createClient("https://pvjdwtgsulrmxamxrw
 window.onload = () => {
   show("home");
 };
+await window.supabaseClient.auth.resetPasswordForEmail(email, {
+  redirectTo: "https://untitledsanboxgameofficialsite.monkomonko50.workers.dev/New-password.html"
+});
 let currentUser = null;
 let role = "guest";
 
