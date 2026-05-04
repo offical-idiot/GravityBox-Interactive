@@ -136,6 +136,6 @@ async function loadProfile() {
 
   document.getElementById("profileRole").textContent =
     user.email === "gravitybox@admin.com"
-      ? "Admin 👑",
+      ? "Admin 👑"
       : "User";
 }
