@@ -9,11 +9,8 @@ let role = "guest";
 
 // ---------- PAGE SYSTEM ----------
 function show(page) {
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.add("hidden");
-  });
-
-  document.getElementById(page).classList.remove("hidden");
+  document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+  document.getElementById(page).classList.remove("hidden");;
 
   if (page === "forum") loadPosts();
   if (page === "games") loadGames();
