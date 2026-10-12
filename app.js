@@ -22,7 +22,10 @@ async function signup() {
     password: password.value
   });
 
-  if (error) alert(error.message);
+  if (error) {
+    showToast("Unable to create your account. Please check your details and try again.");
+    return;
+  }
 }
 
 function showToast(message) {
