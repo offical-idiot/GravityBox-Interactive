@@ -33,12 +33,7 @@ async function signup() {
   });
 
   if (error) {
-    const message =
-      error.code === "user_already_exists"
-        ? "There is already an account that exist with this email."
-        : "Unable to sign in. Check your email and password.";
-
-    showToast(message);
+    showToast("Error creating account. Maybe account creation is down or there is an account with this email already.");
     return;
   }
 }
