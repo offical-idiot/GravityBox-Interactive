@@ -15,6 +15,16 @@ function show(page) {
 
 window.onload = () => show("home");
 
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.setAttribute("role", "alert");
+  toast.textContent = message;
+
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
 // AUTH
 async function signup() {
   const { error } = await window.supabaseClient.auth.signUp({
@@ -31,16 +41,6 @@ async function signup() {
     showToast(message);
     return;
   }
-}
-
-function showToast(message) {
-  const toast = document.createElement("div");
-  toast.className = "toast";
-  toast.setAttribute("role", "alert");
-  toast.textContent = message;
-
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 4000);
 }
 
 async function login() {
