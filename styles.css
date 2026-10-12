@@ -32,7 +32,7 @@ button {
   font: inherit;
 }
 
-.toastgood {
+.status {
   position: fixed;
   top: 20px;
   left: 50%;
