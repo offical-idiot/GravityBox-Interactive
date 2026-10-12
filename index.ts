@@ -1,5 +1,5 @@
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-const RESEND_FROM_EMAIL = Deno.env.get("onboarding@resend.dev");
+const RESEND_FROM_EMAIL = Deno.env.get("RESEND_FROM_EMAIL");
 
 if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY is required");
 if (!RESEND_FROM_EMAIL) throw new Error("RESEND_FROM_EMAIL is required");
@@ -19,7 +19,7 @@ async function sendGravityBoxBanEmail(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: onboarding@resend.dev,
+      from: RESEND_FROM_EMAIL,
       to: [email],
       subject: "Your GravityBox account has been banned",
       text,
