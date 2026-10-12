@@ -25,6 +25,16 @@ async function signup() {
   if (error) alert(error.message);
 }
 
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.setAttribute("role", "alert");
+  toast.textContent = message;
+
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
 async function login() {
   const { data, error } =
     await window.supabaseClient.auth.signInWithPassword({
@@ -32,7 +42,15 @@ async function login() {
       password: password.value
     });
 
-  if (error) return alert(error.message);
+  if (error) {
+    const message =
+      error.code === "user_banned"
+        ? "This account is unavailable. Please contact support."
+        : "Unable to sign in. Check your email and password.";
+
+    showToast(message);
+    return;
+  }
 
   currentUser = data.user;
   show("home");
