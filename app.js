@@ -48,7 +48,7 @@ async function login() {
   if (error) {
     const message =
       error.code === "user_banned"
-        ? "This account is unavailable. Please contact support."
+        ? "This account is Banned. Please contact support."
         : "Unable to sign in. Check your email and password.";
 
     showToast(message);
