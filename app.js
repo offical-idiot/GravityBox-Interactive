@@ -166,3 +166,4 @@ async function loadProfile() {
 
   profileEmail.textContent = "Email: " + data.user.email;
 }
+
